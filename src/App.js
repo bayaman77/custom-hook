@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import styled from "styled-components";
+import Decrement from "./components/Decrement";
+import Increment from "./components/Increment";
+import { useTheme } from "./hooks/useTheme";
 
-function App() {
+const App = () => {
+  const {  changeTheme, getTheme } = useTheme();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Background style={{ backgroundColor: `${getTheme()}` }}>
+      <Container>
+        <Increment />
+        <Decrement />
+        <ThemeBox>
+          <button onClick={() => changeTheme((prev) => !prev)}>
+            Change Theme
+          </button>
+        </ThemeBox>
+      </Container>
+    </Background>
   );
-}
+};
 
 export default App;
+
+const Container = styled.div`
+  width: 400px;
+  margin: 0 auto;
+`;
+
+const Background = styled.div`
+  padding: 30px;
+  width: 100wh;
+  height: 100vh;
+`;
+
+const ThemeBox = styled.div`
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
